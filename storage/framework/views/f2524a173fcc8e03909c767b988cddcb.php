@@ -5,81 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library Management System</title>
     <style>
-        .alert {
-            padding: 15px;
+        body {
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+            font-size: 50px;
             margin-bottom: 20px;
-            border: 1px solid transparent;
-            border-radius: 4px;
         }
-        .alert-success {
-            color: #155724;
-            background-color: #d4edda;
-            border-color: #c3e6cb;
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
         }
-        .alert-danger {
-            color: #721c24;
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .success {
+            color: green;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <h1>Library Books</h1>
+    <h1>📚Book List</h1>
+    <div>
+        <?php if(session('success')): ?>
+            <p class="success"><?php echo e(session('success')); ?></p>
+        <?php endif; ?>
 
-    <?php if(session('success')): ?>
-        <div class="alert alert-success">
-            <?php echo e(session('success')); ?>
+        <?php if(session('error')): ?>
+            <div class="alert alert-danger">
+                <?php echo e(session('error')); ?>
 
-        </div>
-    <?php endif; ?>
+            </div>
+        <?php endif; ?>
 
-    <?php if(session('error')): ?>
-        <div class="alert alert-danger">
-            <?php echo e(session('error')); ?>
+        <?php if($errors->any()): ?>
+            <div class="alert alert-danger">
+                <ul>
+                    <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <li><?php echo e($error); ?></li>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </ul>
+            </div> 
+        <?php endif; ?>  
 
-        </div>
-    <?php endif; ?>
-
-    <?php if($errors->any()): ?>
-        <div class="alert alert-danger">
-            <ul>
-                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <li><?php echo e($error); ?></li>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $__currentLoopData = $books; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $book): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <tr>
+                        <td><?php echo e($book->id); ?></td>
+                        <td><?php echo e($book->title); ?></td>
+                        <td><?php echo e($book->author); ?></td>
+                        <td><?php echo e($book->isbn); ?></td>
+                        <td>
+                            <a href="/books/<?php echo e($book->id); ?>/edit" style="text-decoration: none; background-color: #2196F3; color: white; padding: 5px 10px; border-radius: 5px;">Edit</a>
+                            <form action="/books/<?php echo e($book->id); ?>" method="POST" style="display:inline;">
+                                <?php echo csrf_field(); ?>
+                                <?php echo method_field('DELETE'); ?>
+                                <button type="submit" onclick="return confirm('Are you sure?')" style="background-color: #f44336; color: white; padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer;">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            </ul>
+            </tbody>
+        </table>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="/books/create" style="text-decoration: none; background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px;">Add Book</a>
         </div>
-    <?php endif; ?>
-
-    <form action="/books" method="POST">
-        <?php echo csrf_field(); ?>
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required><br><br>
-
-        <label for="author">Author:</label>
-        <input type="text" id="author" name="author" required><br><br>
-
-        <label for="isbn">ISBN:</label>
-        <input type="text" id="isbn" name="isbn" required><br><br>
-
-        <button type="submit">Add Book</button>
-    </form>
-
-    <h2>Book List</h2>
-    <ul>
-        <?php $__currentLoopData = $books; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $book): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <li><?php echo e($book->title); ?> by <?php echo e($book->author); ?> (ISBN: <?php echo e($book->isbn); ?>)</li>
-
-        <!-- Edit Button --> 
-        <a href="/books/<?php echo e($book->id); ?>/edit" style="display:inline;">Edit</a>
-
-        <!-- Delete Button -->
-         <form action="/books/<?php echo e($book->id); ?>" method="POST" style="display:inline;">
-            <?php echo csrf_field(); ?>
-            <?php echo method_field('DELETE'); ?>
-            <button type="submit" onclick="return confirm('Are you sure to delete this data?')">Delete</button>
-         </form>
-        
-    </ul>
-    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    </div>
 </body>
 </html><?php /**PATH C:\Users\jasar\Desktop\Laravel\LMS2\Library-Managemengt-System\resources\views/LMS.blade.php ENDPATH**/ ?>

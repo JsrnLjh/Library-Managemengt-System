@@ -10,8 +10,8 @@ Route::get('/', function () {
     return view('LMS', compact('books'));
 });
 
-Route::get('/books', [BookController::class, 'index']);
-Route::post('/books', [BookController::class, 'store']);
+Route::get('/books', [BookController::class, 'index']); //shows book list page
+Route::post('/books', [BookController::class, 'store']); //shows add book form 
 Route::get('/books/{id}/edit', [BookController::class, 'edit']); // Show edit form
 Route::put('/books/{id}', [BookController::class, 'update']); // Update book
 Route::delete('/books/{id}', [BookController::class, 'destroy']); // Delete book

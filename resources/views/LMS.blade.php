@@ -5,79 +5,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library Management System</title>
     <style>
-        .alert {
-            padding: 15px;
+        body {
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+            font-size: 50px;
             margin-bottom: 20px;
-            border: 1px solid transparent;
-            border-radius: 4px;
         }
-        .alert-success {
-            color: #155724;
-            background-color: #d4edda;
-            border-color: #c3e6cb;
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
         }
-        .alert-danger {
-            color: #721c24;
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .success {
+            color: green;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <h1>Library Books</h1>
+    <h1>📚Book List</h1>
+    <div>
+        @if(session('success'))
+            <p class="success">{{ session('success') }}</p>
+        @endif
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
 
-    @if(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div> 
+        @endif  
 
-    @if($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($books as $book)
+                    <tr>
+                        <td>{{ $book->id }}</td>
+                        <td>{{ $book->title }}</td>
+                        <td>{{ $book->author }}</td>
+                        <td>{{ $book->isbn }}</td>
+                        <td>
+                            <a href="/books/{{ $book->id }}/edit" style="text-decoration: none; background-color: #2196F3; color: white; padding: 5px 10px; border-radius: 5px;">Edit</a>
+                            <form action="/books/{{ $book->id }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" onclick="return confirm('Are you sure?')" style="background-color: #f44336; color: white; padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer;">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
                 @endforeach
-            </ul>
+            </tbody>
+        </table>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="/books/create" style="text-decoration: none; background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px;">Add Book</a>
         </div>
-    @endif
-
-    <form action="/books" method="POST">
-        @csrf
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required><br><br>
-
-        <label for="author">Author:</label>
-        <input type="text" id="author" name="author" required><br><br>
-
-        <label for="isbn">ISBN:</label>
-        <input type="text" id="isbn" name="isbn" required><br><br>
-
-        <button type="submit">Add Book</button>
-    </form>
-
-    <h2>Book List</h2>
-    <ul>
-        @foreach($books as $book)
-            <li>{{ $book->title }} by {{ $book->author }} (ISBN: {{ $book->isbn }})</li>
-
-        <!-- Edit Button --> 
-        <a href="/books/{{ $book->id }}/edit" style="display:inline;">Edit</a>
-
-        <!-- Delete Button -->
-         <form action="/books/{{ $book->id }}" method="POST" style="display:inline;">
-            @csrf
-            @method('DELETE')
-            <button type="submit" onclick="return confirm('Are you sure to delete this data?')">Delete</button>
-         </form>
-        
-    </ul>
-    @endforeach
+    </div>
 </body>
 </html>
