@@ -66,7 +66,18 @@
     <ul>
         @foreach($books as $book)
             <li>{{ $book->title }} by {{ $book->author }} (ISBN: {{ $book->isbn }})</li>
-        @endforeach
+
+        <!-- Edit Button --> 
+        <a href="/books/{{ $book->id }}/edit" style="display:inline;">Edit</a>
+
+        <!-- Delete Button -->
+         <form action="/books/{{ $book->id }}" method="POST" style="display:inline;">
+            @csrf
+            @method('DELETE')
+            <button type="submit" onclick="return confirm('Are you sure to delete this data?')">Delete</button>
+         </form>
+        
     </ul>
+    @endforeach
 </body>
 </html>

@@ -12,5 +12,6 @@ Route::get('/', function () {
 
 Route::get('/books', [BookController::class, 'index']);
 Route::post('/books', [BookController::class, 'store']);
-Route::get('/books/{id}', [BookController::class, 'update']); //Edit book
-Route::get('/books/{id}', [BookController::class, 'destroy']); //Delete book
+Route::get('/books/{id}/edit', [BookController::class, 'edit']); // Show edit form
+Route::put('/books/{id}', [BookController::class, 'update']); // Update book
+Route::delete('/books/{id}', [BookController::class, 'destroy']); // Delete book

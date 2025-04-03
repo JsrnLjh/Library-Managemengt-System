@@ -68,7 +68,18 @@
     <ul>
         <?php $__currentLoopData = $books; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $book): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <li><?php echo e($book->title); ?> by <?php echo e($book->author); ?> (ISBN: <?php echo e($book->isbn); ?>)</li>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+        <!-- Edit Button --> 
+        <a href="/books/<?php echo e($book->id); ?>/edit" style="display:inline;">Edit</a>
+
+        <!-- Delete Button -->
+         <form action="/books/<?php echo e($book->id); ?>" method="POST" style="display:inline;">
+            <?php echo csrf_field(); ?>
+            <?php echo method_field('DELETE'); ?>
+            <button type="submit" onclick="return confirm('Are you sure to delete this data?')">Delete</button>
+         </form>
+        
     </ul>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 </body>
 </html><?php /**PATH C:\Users\jasar\Desktop\Laravel\LMS2\Library-Managemengt-System\resources\views/LMS.blade.php ENDPATH**/ ?>
