@@ -2325,3 +2325,5 @@ Did you mean this?
 #52 C:\\Users\\jasar\\Desktop\\Laravel\\LMS2\\Library-Managemengt-System\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(23): require_once('C:\\\\Users\\\\jasar\\\\...')
 #53 {main}
 "} 
+[2025-04-03 16:36:23] local.INFO: Incoming book data: {"_token":"YvJJdsSXEYPNqXzZHInKqQ86mAVeb5eoAd83h0SQ","title":"It Ends with Us","author":"Colleen Hoover","isbn":"98234523"} 
+[2025-04-03 16:36:23] local.INFO: Book created successfully: {"book_id":2} 
