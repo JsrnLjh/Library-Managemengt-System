@@ -41,7 +41,7 @@ class BookController extends Controller
             return redirect('/')->with('success', 'Book added successfully!');
         } catch (\Exception $e) {
             Log::error('Error creating book:', ['error' => $e->getMessage()]);
-            return redirect()->back()->with('error', 'Error adding book: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['error' => 'Failed to create book.']);
         }
     }
     public function show($id)
@@ -51,3 +51,4 @@ class BookController extends Controller
         return view('books.show', compact('book'));
     }
 }
+

@@ -1746,3 +1746,5 @@ Did you mean this?
 "} 
 [2025-04-02 16:12:07] local.INFO: Incoming book data: {"_token":"cLcV7VdSrwvLmaVaQW2AqwGapvjZEi7sJHG3SXhH","title":"sfdsa","author":"asd","isbn":"234234234"} 
 [2025-04-02 16:12:07] local.INFO: Book created successfully: {"book_id":1} 
+[2025-04-03 06:30:08] local.INFO: Incoming book data: {"_token":"l1WlliaFvwV32mAKuMQVAQEksjmUEtWPsHJrpRq3","title":"It Starts with Us","author":"Colleen Hoover","isbn":"0192834211"} 
+[2025-04-03 06:30:09] local.INFO: Book created successfully: {"book_id":1} 
