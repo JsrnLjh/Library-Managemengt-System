@@ -11,6 +11,7 @@ Route::get('/', function () {
 });
 
 Route::get('/books', [BookController::class, 'index']); //shows book list page
+Route::get('/books/create', [BookController::class, 'create']); //shows add book form
 Route::post('/books', [BookController::class, 'store']); //shows add book form 
 Route::get('/books/{id}/edit', [BookController::class, 'edit']); // Show edit form
 Route::put('/books/{id}', [BookController::class, 'update']); // Update book

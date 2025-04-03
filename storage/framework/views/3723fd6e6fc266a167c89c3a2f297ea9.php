@@ -40,7 +40,7 @@
 </head>
 <body>
     <form action="/books" method="POST">
-        @csrf
+        <?php echo csrf_field(); ?>
         <h1>Add a New Book</h1>
         <input type="text" name="title" placeholder="Book Title" required>
         <input type="text" name="author" placeholder="Author" required>
@@ -48,4 +48,4 @@
         <button type="submit">Add Book</button>
     </form>
 </body>
-</html>
+</html><?php /**PATH C:\Users\jasar\Desktop\Laravel\LMS2\Library-Managemengt-System\resources\views/create.blade.php ENDPATH**/ ?>
