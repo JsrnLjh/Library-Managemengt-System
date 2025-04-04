@@ -35,6 +35,30 @@
             color: green;
             margin-bottom: 10px;
         }
+        .filter-container {
+            display: flex;
+            justify-content: center; /* Centers the elements */
+            align-items: center; /* Aligns elements vertically */
+            gap: 15px; /* Adds space between elements */
+            margin-bottom: 20px;
+        }
+
+        .filter-container label {
+            font-weight: bold;
+        }
+
+        .filter-container select, 
+        .filter-container button, 
+        .filter-container .reset-link {
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+
+        .reset-link {
+            text-decoration: none;
+            color: red;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -61,61 +85,28 @@
             </div> 
         <?php endif; ?>  
 
-        bladeCopy<div class="card mb-4">
-    <div class="card-header">
-        <h5>Filter Books</h5>
-    </div>
-    <div class="card-body">
-        <form action="<?php echo e(route('LMS')); ?>" method="GET">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="genre_id">Genre</label>
-                        <select name="genre_id" id="genre_id" class="form-control">
-                            <option value="">All Genres</option>
-                            <?php $__currentLoopData = $genres; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $genre): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($genre->id); ?>" <?php echo e(request('genre_id') == $genre->id ? 'selected' : ''); ?>>
-                                    <?php echo e($genre->name); ?>
+        <div class="filter-container">
+            <label for="genre">Genre</label>
+            <select id="genre" name="genre">
+                <option>All Genres</option>
+                <!-- Add genre options dynamically -->
+            </select>
 
-                                </option>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="subject_id">Subject</label>
-                        <select name="subject_id" id="subject_id" class="form-control">
-                            <option value="">All Subjects</option>
-                            <?php $__currentLoopData = $subjects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $subject): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($subject->id); ?>" <?php echo e(request('subject_id') == $subject->id ? 'selected' : ''); ?>>
-                                    <?php echo e($subject->name); ?>
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject">
+                <option>All Subjects</option>
+                <!-- Add subject options dynamically -->
+            </select>
 
-                                </option>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="availability">Availability</label>
-                        <select name="availability" id="availability" class="form-control">
-                            <option value="">All</option>
-                            <option value="available" <?php echo e(request('availability') == 'available' ? 'selected' : ''); ?>>Available</option>
-                            <option value="checked_out" <?php echo e(request('availability') == 'checked_out' ? 'selected' : ''); ?>>Checked Out</option>
-                            <option value="on_hold" <?php echo e(request('availability') == 'on_hold' ? 'selected' : ''); ?>>On Hold</option>
-                            <option value="in_processing" <?php echo e(request('availability') == 'in_processing' ? 'selected' : ''); ?>>In Processing</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="text-right mt-3">
-                <button type="submit" class="btn btn-primary">Filter</button>
-                <a href="<?php echo e(route('LMS')); ?>" class="btn btn-secondary">Reset</a>
-            </div>
-        </form>
-    </div>
-</div>
+            <label for="availability">Availability</label>
+            <select id="availability" name="availability">
+                <option>All</option>
+                <!-- Add availability options dynamically -->
+            </select>
+
+            <button type="submit">Filter</button>
+            <a href="<?php echo e(route('LMS')); ?>" class="reset-link">Reset</a>
+        </div>
 
         <table>
             <thead>

@@ -40,6 +40,8 @@ class BookController extends Controller
         $genres = genre::all();
         $subjects = subjects::all();
 
+        $book=Book::all();
+
         //Return with all data
         return view('LMS', compact('books', 'genres', 'subjects'));
     }
