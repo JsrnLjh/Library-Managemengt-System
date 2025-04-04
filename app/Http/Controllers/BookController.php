@@ -3,18 +3,48 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\genre;
+use App\Models\subjects;
 use Illuminate\Http\Request;
 use App\Models\Book; // Assuming you have a Book model
 use Illuminate\Support\Facades\Log;
 
 class BookController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // Fetch all books from the database
-        $books = Book::orderBy('title', 'asc')->get();
-        return view('LMS', compact('books'));
+        $query = Book::query();
+
+        //Filter by genre
+        if ($request->has('genre_id') && $request->genre_id != '') {
+            $query->where('genre_id', $request->genre_id);
+        }
+
+        //Filter by subject
+        if ($request->has('subject_id') && $request->subject_id != '') {
+            $query->where('subject_id', $request->subject_id);
+        }
+        //Filter by availability
+        if ($request->has('availability') && $request->availability != '') {
+            $query->where('availability', $request->availability);
+        }
+        
+        //existing ordering
+        $query->orderBy('title', 'asc'); // Order by title
+
+        //exucute query
+        $books = $query->get();
+
+        //Get all genres and subjects for the filter dropdowns
+        $genres = genre::all();
+        $subjects = subjects::all();
+
+        //Return with all data
+        return view('LMS', compact('books', 'genres', 'subjects'));
     }
+
+    
 
     public function create()
     {

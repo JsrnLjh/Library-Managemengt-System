@@ -46,7 +46,6 @@
         <input type="text" name="author" placeholder="Author" required>
         <input type="text" name="isbn" placeholder="ISBN" required>
         <button type="submit">Add Book</button>
-        <button></button>
     </form>
 </body>
 </html>

@@ -5,10 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Models\Book;
 
-Route::get('/', function () {
-    $books = Book::all();
-    return view('LMS', compact('books'));
-});
+Route::get('/', [BookController::class, 'index'])->name('LMS');
 
 Route::get('/books', [BookController::class, 'index']); //shows book list page
 Route::get('/books/create', [BookController::class, 'create']); //shows add book form

@@ -60,6 +60,60 @@
             </div> 
         @endif  
 
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Filter Books</h5>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('LMS') }}" method="GET">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="genre_id">Genre</label>
+                                <select name="genre_id" id="genre_id" class="form-control">
+                                    <option value="">All Genres</option>
+                                    @foreach($genres as $genre)
+                                        <option value="{{ $genre->id }}" {{ request('genre_id') == $genre->id ? 'selected' : '' }}>
+                                            {{ $genre->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="subject_id">Subject</label>
+                                <select name="subject_id" id="subject_id" class="form-control">
+                                    <option value="">All Subjects</option>
+                                    @foreach($subjects as $subject)
+                                        <option value="{{ $subject->id }}" {{ request('subject_id') == $subject->id ? 'selected' : '' }}>
+                                            {{ $subject->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="availability">Availability</label>
+                                <select name="availability" id="availability" class="form-control">
+                                    <option value="">All</option>
+                                    <option value="available" {{ request('availability') == 'available' ? 'selected' : '' }}>Available</option>
+                                    <option value="checked_out" {{ request('availability') == 'checked_out' ? 'selected' : '' }}>Checked Out</option>
+                                    <option value="on_hold" {{ request('availability') == 'on_hold' ? 'selected' : '' }}>On Hold</option>
+                                    <option value="in_processing" {{ request('availability') == 'in_processing' ? 'selected' : '' }}>In Processing</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right mt-3">
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                        <a href="{{ route('LMS') }}" class="btn btn-secondary">Reset</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <table>
             <thead>
                 <tr>

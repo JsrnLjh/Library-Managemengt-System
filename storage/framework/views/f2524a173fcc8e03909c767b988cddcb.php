@@ -61,6 +61,62 @@
             </div> 
         <?php endif; ?>  
 
+        bladeCopy<div class="card mb-4">
+    <div class="card-header">
+        <h5>Filter Books</h5>
+    </div>
+    <div class="card-body">
+        <form action="<?php echo e(route('LMS')); ?>" method="GET">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="genre_id">Genre</label>
+                        <select name="genre_id" id="genre_id" class="form-control">
+                            <option value="">All Genres</option>
+                            <?php $__currentLoopData = $genres; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $genre): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($genre->id); ?>" <?php echo e(request('genre_id') == $genre->id ? 'selected' : ''); ?>>
+                                    <?php echo e($genre->name); ?>
+
+                                </option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="subject_id">Subject</label>
+                        <select name="subject_id" id="subject_id" class="form-control">
+                            <option value="">All Subjects</option>
+                            <?php $__currentLoopData = $subjects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $subject): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($subject->id); ?>" <?php echo e(request('subject_id') == $subject->id ? 'selected' : ''); ?>>
+                                    <?php echo e($subject->name); ?>
+
+                                </option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="availability">Availability</label>
+                        <select name="availability" id="availability" class="form-control">
+                            <option value="">All</option>
+                            <option value="available" <?php echo e(request('availability') == 'available' ? 'selected' : ''); ?>>Available</option>
+                            <option value="checked_out" <?php echo e(request('availability') == 'checked_out' ? 'selected' : ''); ?>>Checked Out</option>
+                            <option value="on_hold" <?php echo e(request('availability') == 'on_hold' ? 'selected' : ''); ?>>On Hold</option>
+                            <option value="in_processing" <?php echo e(request('availability') == 'in_processing' ? 'selected' : ''); ?>>In Processing</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right mt-3">
+                <button type="submit" class="btn btn-primary">Filter</button>
+                <a href="<?php echo e(route('LMS')); ?>" class="btn btn-secondary">Reset</a>
+            </div>
+        </form>
+    </div>
+</div>
+
         <table>
             <thead>
                 <tr>
