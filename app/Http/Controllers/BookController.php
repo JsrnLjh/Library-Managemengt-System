@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\genre;
-use App\Models\subjects;
+use App\Models\Genre;
+use App\Models\Subjects;
 use Illuminate\Http\Request;
 use App\Models\Book; // Assuming you have a Book model
 use Illuminate\Support\Facades\Log;
@@ -37,8 +37,8 @@ class BookController extends Controller
         $books = $query->get();
 
         //Get all genres and subjects for the filter dropdowns
-        $genres = genre::all();
-        $subjects = subjects::all();
+        $genres = Genre::all();
+        $subjects = Subjects::all();
 
         $book=Book::all();
 
