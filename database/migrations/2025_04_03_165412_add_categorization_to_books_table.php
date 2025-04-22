@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('books', function (Blueprint $table) {
-            $table->foriegnId('genre_id')->nullable()->constrained()-nullOnDelete();
+            $table->foriegnId('genre_id')->nullable()->constrained()->nullOnDelete();
             $table->foriegnId('subject_id')->nullable()->constrained()->nullOnDelete();
             $table->enum('availability', ['available', 'checked_out', 'on_hold', 'in_processing'])->default('available');
         });

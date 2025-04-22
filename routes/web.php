@@ -1,15 +1,20 @@
 <?php
 
-use Illuminate\Https\Request;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BookController;
-use App\Models\Book;
 
-Route::get('/', [BookController::class, 'index'])->name('LMS');
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::get('/books', [BookController::class, 'index']); //shows book list page
-Route::get('/books/create', [BookController::class, 'create']); //shows add book form
-Route::post('/books', [BookController::class, 'store']); //shows add book form 
-Route::get('/books/{id}/edit', [BookController::class, 'edit']); // Show edit form
-Route::put('/books/{id}', [BookController::class, 'update']); // Update book
-Route::delete('/books/{id}', [BookController::class, 'destroy']); // Delete book
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
